@@ -81,7 +81,7 @@ st.title('交互式智能股票分析系统：整合技术指标、基本面数�
 
 # Sidebar for user inputs and news feed
 st.sidebar.title('股票情绪智能分析')
-ticker = st.sidebar.text_input('输入股票代码', 'TLSA').upper()
+ticker = st.sidebar.text_input('输入股票代码（目前仅支持美股）', 'TLSA').upper()
 
 # Main content
 data = load_data(ticker)
