@@ -77,7 +77,7 @@ def get_vader_sentiment(text):
     sia = SentimentIntensityAnalyzer()
     return sia.polarity_scores(text)
 
-st.title('交互式智能股票分析：全面整合技术指标、基本面数据与新闻情绪分析')
+st.title('交互式智能股票分析：整合技术指标、基本面数据与新闻情绪')
 
 # Sidebar for user inputs and news feed
 st.sidebar.title('股票情绪智能分析')
