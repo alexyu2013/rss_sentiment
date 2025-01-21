@@ -49,7 +49,7 @@ def get_vader_sentiment(text):
     return sia.polarity_scores(text)
 
 def main():
-    st.title('交互式智能股票分析系统：日内交易使用')
+    st.title('交互式智能股票分析系统：日内交易')
 
     # Sidebar for user inputs and news feed
     st.sidebar.title('股票情绪智能分析')
@@ -127,7 +127,7 @@ def main():
     st.plotly_chart(fig, use_container_width=True)
 
     # News feed with sentiment analysis
-    st.sidebar.subheader(f"Recent News for {ticker} with Sentiment Analysis")
+    st.sidebar.subheader(f"基于智能情感分析的 {ticker} 股票情报")
     
     feed = fetch_rss_feed(ticker)
 
@@ -139,13 +139,13 @@ def main():
             compound_score = sentiment['compound']
 
             if compound_score >= 0.05:
-                sentiment_category = "Positive"
+                sentiment_category = "积极"
                 color = "green"
             elif compound_score <= -0.05:
-                sentiment_category = "Negative"
+                sentiment_category = "消极"
                 color = "red"
             else:
-                sentiment_category = "Neutral"
+                sentiment_category = "中性"
                 color = "gray"
 
             news_items.append({
