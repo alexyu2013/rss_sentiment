@@ -49,22 +49,22 @@ def get_vader_sentiment(text):
     return sia.polarity_scores(text)
 
 def main():
-    st.title('Day Trading Chart with News and Sentiment Scores')
+    st.title('交互式智能股票分析系统：日内交易使用')
 
     # Sidebar for user inputs and news feed
-    st.sidebar.title('Stock Ticker and Settings')
-    ticker = st.sidebar.text_input('Enter Stock Symbol', 'AAPL').upper()
+    st.sidebar.title('股票情绪智能分析')
+    ticker = st.sidebar.text_input('输入股票代码（目前仅支持美股）', 'AAPL').upper()
     
-    interval = st.sidebar.selectbox('Select Interval', ['1m', '5m', '15m'], index=1)
+    interval = st.sidebar.selectbox('选择时间间隔', ['1m', '5m', '15m'], index=1)
     period = '1d'  # For day trading, we'll use 1-day period
 
     # Main content
     data = load_data(ticker, interval, period)
 
-    selected_emas = st.multiselect('Select EMA periods', [9, 20, 50], default=[9, 20])
+    selected_emas = st.multiselect('选择 EMA 周期', [9, 20, 50], default=[9, 20])
 
-    add_rsi_plot = st.checkbox('Add RSI Subplot', value=True)
-    add_macd_plot = st.checkbox('Add MACD Subplot', value=True)
+    add_rsi_plot = st.checkbox('添加 RSI 分析图', value=True)
+    add_macd_plot = st.checkbox('添加 MACD 分析图', value=True)
 
     data = add_ema(data, selected_emas)
 
@@ -106,7 +106,7 @@ def main():
         fig.update_yaxes(title='MACD', row=current_row, col=1)
 
     fig.update_layout(
-        title=f'{ticker} Day Trading Chart ({interval} interval)',
+        title=f'{ticker} 日内交易图表 ({interval} 间隔)',
         xaxis_title='Time',
         yaxis_title='Price',
         height=800,
@@ -161,17 +161,17 @@ def main():
         total_sentiment_score = sum(item['compound_score'] for item in news_items)
 
         # Display total sentiment score
-        st.sidebar.markdown(f"<h3 style='color: {'green' if total_sentiment_score >= 0 else 'red'}'>Total Sentiment Score: {total_sentiment_score:.2f}</h3>", unsafe_allow_html=True)
+        st.sidebar.markdown(f"<h3 style='color: {'green' if total_sentiment_score >= 0 else 'red'}'>总情绪得分： {total_sentiment_score:.2f}</h3>", unsafe_allow_html=True)
 
         # Display news items
         for item in news_items:
             st.sidebar.markdown(f"**{item['title']}**")
             st.sidebar.markdown(f"[Read more]({item['link']})")
-            st.sidebar.markdown(f"*Published: {item['published']}*")
-            st.sidebar.markdown(f"Sentiment: <span style='color:{item['color']}'>{item['sentiment_category']}</span> (Score: {item['compound_score']:.2f})", unsafe_allow_html=True)
+            st.sidebar.markdown(f"*发布时间: {item['published']}*")
+            st.sidebar.markdown(f"情绪: <span style='color:{item['color']}'>{item['sentiment_category']}</span> (Score: {item['compound_score']:.2f})", unsafe_allow_html=True)
             st.sidebar.markdown("---")
     else:
-        st.sidebar.write("No news found for the given ticker symbol.")
+        st.sidebar.write("对不起，暂未找该股票代码的新闻.")
 
 if __name__ == "__main__":
     main()
