@@ -1,1 +1,6 @@
-
+feedparser==6.0.11
+nltk==3.9.1
+pandas==2.2.2
+plotly==5.22.0
+yfinance==0.2.40
+st-annotated-text==4.0.1
