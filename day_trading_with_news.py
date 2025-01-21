@@ -49,7 +49,7 @@ def get_vader_sentiment(text):
     return sia.polarity_scores(text)
 
 def main():
-    st.title('交互式智能股票分析系统：日内交易')
+    st.title('交互式智能股票分析：日内交易')
 
     # Sidebar for user inputs and news feed
     st.sidebar.title('股票情绪智能分析')
