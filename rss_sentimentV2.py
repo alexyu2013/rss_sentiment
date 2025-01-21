@@ -80,25 +80,25 @@ def get_vader_sentiment(text):
 st.title('交互式股票分析图表：整合技术指标、基本面数据与新闻情绪分析')
 
 # Sidebar for user inputs and news feed
-st.sidebar.title('Stock Ticker and News')
-ticker = st.sidebar.text_input('Enter Stock Ticker', 'GOOGL').upper()
+st.sidebar.title('股票新闻分析')
+ticker = st.sidebar.text_input('输入股票代码', 'TLSA').upper()
 
 # Main content
 data = load_data(ticker)
 
-periods = st.slider('Select Time Period (in days)', 30, 365, 180)
+periods = st.slider('选择时间段（以天为单位）', 30, 365, 180)
 
-selected_emas = st.multiselect('Select EMA periods', [200, 50, 20], default=[200, 50, 20])
+selected_emas = st.multiselect('选择 EMA 周期', [200, 50, 20], default=[200, 50, 20])
 
-add_rsi_plot = st.checkbox('Add RSI Subplot')
-add_macd_plot = st.checkbox('Add MACD Subplot')
+add_rsi_plot = st.checkbox('添加 RSI 分析图')
+add_macd_plot = st.checkbox('添加 MACD 分析图')
 
-st.subheader('Select Fundamental Metrics to Display')
+st.subheader('选择要显示的技术指标')
 metrics = get_fundamental_metrics(ticker)
 selected_metrics = st.multiselect('Choose metrics', list(metrics.keys()), default=['P/E Ratio', 'ROE', 'Profit Margin'])
 
 if selected_metrics:
-    st.subheader('Fundamental Metrics')
+    st.subheader('基本指标')
     for i in range(0, len(selected_metrics), 3):
         cols = st.columns(3)
         for j in range(3):
@@ -168,7 +168,7 @@ fig.update_layout(
 st.plotly_chart(fig)
 
 # RSS feed in the sidebar with sentiment analysis
-st.sidebar.subheader(f"Recent News for {ticker} with Sentiment Analysis")
+st.sidebar.subheader(f"基于智能情感分析的 {ticker} 股票新闻情报")
 st.sidebar.text("Loading news...")  # Simple loading message
 
 feed = fetch_rss_feed(ticker)
@@ -182,13 +182,13 @@ if feed.entries:
 
         # Determine sentiment category
         if compound_score >= 0.05:
-            sentiment_category = "Positive"
+            sentiment_category = "积极"
             color = "green"
         elif compound_score <= -0.05:
-            sentiment_category = "Negative"
+            sentiment_category = "消极"
             color = "red"
         else:
-            sentiment_category = "Neutral"
+            sentiment_category = "中性"
             color = "gray"
 
         news_items.append({
@@ -210,17 +210,17 @@ if feed.entries:
     total_sentiment_score = sum(item['compound_score'] for item in latest_10_news)
 
     # Display total sentiment score in red
-    st.sidebar.markdown(f"<h3 style='color: red;'>Total Sentiment Score: {total_sentiment_score:.2f}</h3>", unsafe_allow_html=True)
+    st.sidebar.markdown(f"<h3 style='color: red;'>总情绪得分: {total_sentiment_score:.2f}</h3>", unsafe_allow_html=True)
 
     # Display sorted news items
     for item in latest_10_news:
         st.sidebar.markdown(f"**{item['title']}**")
         st.sidebar.markdown(f"[Read more]({item['link']})")
-        st.sidebar.markdown(f"*Published: {item['published']}*")
-        st.sidebar.markdown(f"Sentiment: <span style='color:{item['color']}'>{item['sentiment_category']}</span> (Score: {item['compound_score']:.2f})", unsafe_allow_html=True)
+        st.sidebar.markdown(f"*发布时间: {item['published']}*")
+        st.sidebar.markdown(f"情绪: <span style='color:{item['color']}'>{item['sentiment_category']}</span> (Score: {item['compound_score']:.2f})", unsafe_allow_html=True)
         st.sidebar.markdown("---")
 else:
-    st.sidebar.write("No news found for the given ticker symbol.")
+    st.sidebar.write("对不起，暂未找该股票代码的新闻.")
 
 # Remove the loading message after fetching is complete
 st.sidebar.empty()
