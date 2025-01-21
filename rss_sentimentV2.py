@@ -77,7 +77,7 @@ def get_vader_sentiment(text):
     sia = SentimentIntensityAnalyzer()
     return sia.polarity_scores(text)
 
-st.title('交互式智能股票分析系统：整合技术指标、基本面数据与新闻情绪分析')
+st.title('交互式智能股票分析：全面整合技术指标、基本面数据与新闻情绪分析')
 
 # Sidebar for user inputs and news feed
 st.sidebar.title('股票情绪智能分析')
@@ -95,7 +95,7 @@ add_macd_plot = st.checkbox('添加 MACD 分析图')
 
 st.subheader('选择要显示的技术指标')
 metrics = get_fundamental_metrics(ticker)
-selected_metrics = st.multiselect('Choose metrics', list(metrics.keys()), default=['P/E Ratio', 'ROE', 'Profit Margin'])
+selected_metrics = st.multiselect('选择指标', list(metrics.keys()), default=['P/E Ratio', 'ROE', 'Profit Margin'])
 
 if selected_metrics:
     st.subheader('基本指标')
@@ -155,7 +155,7 @@ if add_macd_plot:
     fig.update_yaxes(range=macd_range, row=current_row, col=1, title='MACD')
 
 fig.update_layout(
-    title=f'{ticker} Stock Price and Indicators',
+    title=f'{ticker} 股票价格和指标',
     xaxis_title='Date',
     yaxis_title='Price',
     height=400 + 200 * (rows - 1),
