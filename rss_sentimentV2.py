@@ -77,10 +77,10 @@ def get_vader_sentiment(text):
     sia = SentimentIntensityAnalyzer()
     return sia.polarity_scores(text)
 
-st.title('交互式股票分析图表：整合技术指标、基本面数据与新闻情绪分析')
+st.title('交互式智能股票分析系统：整合技术指标、基本面数据与新闻情绪分析')
 
 # Sidebar for user inputs and news feed
-st.sidebar.title('股票新闻分析')
+st.sidebar.title('股票情绪智能分析')
 ticker = st.sidebar.text_input('输入股票代码', 'TLSA').upper()
 
 # Main content
@@ -168,7 +168,7 @@ fig.update_layout(
 st.plotly_chart(fig)
 
 # RSS feed in the sidebar with sentiment analysis
-st.sidebar.subheader(f"基于智能情感分析的 {ticker} 股票新闻情报")
+st.sidebar.subheader(f"基于智能情感分析的 {ticker} 股票情报")
 st.sidebar.text("Loading news...")  # Simple loading message
 
 feed = fetch_rss_feed(ticker)
