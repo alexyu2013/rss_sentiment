@@ -140,10 +140,10 @@ def main():
 
             if compound_score >= 0.05:
                 sentiment_category = "积极"
-                color = "green"
+                color = "red"
             elif compound_score <= -0.05:
                 sentiment_category = "消极"
-                color = "red"
+                color = "green"
             else:
                 sentiment_category = "中性"
                 color = "gray"
