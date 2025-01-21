@@ -77,7 +77,7 @@ def get_vader_sentiment(text):
     sia = SentimentIntensityAnalyzer()
     return sia.polarity_scores(text)
 
-st.title('Interactive Stock Chart with Technical Indicators, Fundamental Metrics, and News Sentiment')
+st.title('交互式股票分析图表：整合技术指标、基本面数据与新闻情绪分析')
 
 # Sidebar for user inputs and news feed
 st.sidebar.title('Stock Ticker and News')
